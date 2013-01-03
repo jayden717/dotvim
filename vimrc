@@ -13,6 +13,8 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+" neocomplcach 设置
+"let g:neocomplcache_enable_at_startup=1
 source ~/.vim/neocomplcache.conf
 
 " When started as "evim", evim.vim will already have done these settings.
@@ -40,7 +42,6 @@ source $VIMRUNTIME/menu.vim
 language messages zh_CN.utf-8 
 " 设置配色方案
 "colorscheme evening 
-
 
 " 显示行号
 set number
@@ -71,42 +72,19 @@ map H :Tbbp<RETURN>
 " 绑定功能键
 "map <F2> <ESC>:set mouse=v<RETURN>
 "map <F3> <ESC>:set mouse=a<RETURN>
-"map <F4> <ESC>:set mouse-=a<RETURN>
-map <F5> <ESC>:WMToggle<RETURN>   
+map <F3> <ESC>:set mouse-=a<RETURN>
   
 " nerdtree 设置
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=20
-nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
 
 " tagbar 设置
-nmap <silent> <F4> :TagbarToggle<CR>
+nmap <silent> <F5> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = 'ctags'
 let g:tagbar_width = 20
 "let g:tagbar_left = 1         "在左侧
 let g:tagbar_right = 1        "在右侧
-
-" SrcExpl 设置 
-nmap <F8> :SrcExplToggle<CR> 
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 8 
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-" // Set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" //  create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-" // Set "<F12>" key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>" 
 
 " a.vim 设置
 map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
@@ -118,8 +96,8 @@ map <silent> <leader>e :e ~/.vimrc<cr>
 "When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-" 设置path  在当前文件所在目录、/usr/include目录、当前工作路径和XLan目录中搜索
-"set path=.,/usr/include,/usr/local/Trolltech/Qt-4.4.1/include,,~/jayden/project/xlan/**
+" 设置path  在当前文件所在目录、/usr/include目录、当前工作路径中搜索
+"set path=.,/usr/include,,
 set path=.
 if has("win32")
 set tags=.\tags
@@ -128,15 +106,12 @@ set tags+=~/tags/stltags
 set tags+=./tags
 endif
 
+"Cscope设置
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
 "打开文件类型检测,关掉智能补全时的预览窗口
 filetype plugin indent on
 set completeopt=longest,menu
-
-" 设置taglist
-let Tlist_Show_One_File = 1 "只显示当前文件的tag
-let Tlist_Exit_OnlyWindow = 1 "如果taglist 是最后一个窗口则退出VIM
-"let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
-"let Tlist_Auto_Open  = 1 "启动vim时自动打开taglist 
 
 "quickfix 设置
 let g:my_quickfix_win_height=10
@@ -160,10 +135,8 @@ augroup QFixToggle
     autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 
-map <F10> <ESC>:QFix<RETURN>   
+map <F7> <ESC>:QFix<RETURN>   
 
-" neocomplcach 设置
-"let g:neocomplcache_enable_at_startup=1
 
 "netrw 设置
 let g:netrw_winsize = 30
@@ -172,29 +145,12 @@ nmap <silent> <leader>fe :Sexplore!<cr>
 "echofunc 设置
 let g:EchoFuncLangsUsed = ["cpp", "java"] 
 
-"bufexplor 设置
-let g:bufExplorerDefaultHelp=0       " Do not show default help.
-let g:bufExplorerShowRelativePath=1  " Show relative paths.
-let g:bufExplorerSortBy='mru'        " Sort by most recently used.
-let g:bufExplorerSplitRight=0        " Split left.
-let g:bufExplorerSplitVertical=1     " Split vertically.
-let g:bufExplorerSplitVertSize = 30  " Split width
-let g:bufExplorerUseCurrentWindow=1  " Open in new window.
-
-"winManager 设置
-let g:winManagerWindowLayout = "BufExplorer,FileExplorer|TagList"
-let g:winManagerWidth = 30
-let g:defaultExplorer = 0
-nmap <C-W><C-F> :FirstExplorerWindow<cr>
-nmap <C-W><C-B> :BottomExplorerWindow<cr>
-nmap <silent> <leader>wm :WMToggle<cr> 
-
 "设置 doxygenToolkit
 let g:DoxygenToolkit_authorName="Jayden   tjjun@vtron.com"
 let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:DoxygenToolkit_licenseTag="Copyright (c) 2010, VTRON All rights reserved.\<enter>"
 let g:DoxygenToolkit_commentType = "C++"
-map <F7> <ESC>:DoxAuthor<RETURN>      
+map <F8> <ESC>:DoxAuthor<RETURN>      
 "map <F10> <ESC>:Dox<RETURN>   
 map <F9> <ESC>:DoxBlock<RETURN>   
 "map <F8> <ESC>O/** */<Left><Left> <RETURN>   
@@ -213,11 +169,6 @@ endif
 nmap <silent> <leader>lk :LookupFile<cr>   "映射LookupFile为,lk
 nmap <silent> <leader>ll :LUBufs<cr>       "映射LUBufs为,ll
 nmap <silent> <leader>lw :LUWalk<cr>       "映射LUWalk为,lw
-
-" a.vim 设置
-map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件
-
-
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
