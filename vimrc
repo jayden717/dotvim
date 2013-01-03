@@ -1,0 +1,288 @@
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2006 Nov 16
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"	      for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"	    for OpenVMS:  sys$login:.vimrc
+
+"自动加载pathogen
+call pathogen#infect()
+
+source ~/.vim/neocomplcache.conf
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
+" 设置编码
+set encoding=utf-8
+" 设置文件编码检测类型及支持格式
+"set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8,chinese,latin-1
+" 设置文件编码
+if has("win32")
+set fileencoding=chinese
+else
+set fileencoding=utf-8
+endif
+" 指定菜单语言
+set langmenu=zh_CN.UTF-8
+"解决菜单乱码
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+"解决consle输出乱码
+language messages zh_CN.utf-8 
+" 设置配色方案
+"colorscheme evening 
+
+
+" 显示行号
+set number
+" 使用space代替tab
+set expandtab 
+" 四个空格代替tab
+set tabstop=4
+" 自动缩进的宽度
+set shiftwidth=4
+" 取消查找内容高亮显示
+set nohlsearch
+set textwidth=78 
+set formatoptions+=mM
+
+" 绑定在窗口之间移动的快捷键
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+
+" 绑定tabbar在多个文件中切换
+map L :Tbbn<RETURN>             
+map H :Tbbp<RETURN>              
+
+"visualmark 内部绑定了F2
+"lookup file 内部绑定了F5
+
+" 绑定功能键
+"map <F2> <ESC>:set mouse=v<RETURN>
+"map <F3> <ESC>:set mouse=a<RETURN>
+"map <F4> <ESC>:set mouse-=a<RETURN>
+map <F5> <ESC>:WMToggle<RETURN>   
+  
+" nerdtree 设置
+let NERDTreeWinPos='left'
+nnoremap <F3> :NERDTreeToggle<CR>
+
+" tagbar 设置
+nmap <silent> <F4> :TagbarToggle<CR>
+let g:tagbar_ctags_bin = 'ctags'
+let g:tagbar_width = 30
+let g:tagbar_left = 1         "在左侧
+"let g:tagbar_right = 1        "在右侧
+
+" SrcExpl 设置 
+nmap <F8> :SrcExplToggle<CR> 
+" // Set the height of Source Explorer window 
+let g:SrcExpl_winHeight = 8 
+" // Set 100 ms for refreshing the Source Explorer 
+let g:SrcExpl_refreshTime = 100 
+" // Set "Enter" key to jump into the exact definition context 
+let g:SrcExpl_jumpKey = "<ENTER>" 
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+" // Enable/Disable the local definition searching, and note that this is not 
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1 
+" // Do not let the Source Explorer update the tags file when opening 
+let g:SrcExpl_isUpdateTags = 0 
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+" //  create/update a tags file 
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+" // Set "<F12>" key for updating the tags file artificially 
+let g:SrcExpl_updateTagsKey = "<F12>" 
+
+" a.vim 设置
+map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
+
+"Set mapleader
+let mapleader = ","
+"Fast editing of .vimrc
+map <silent> <leader>e :e ~/.vimrc<cr>
+"When .vimrc is edited, reload it
+autocmd! bufwritepost .vimrc source ~/.vimrc
+
+" 设置path  在当前文件所在目录、/usr/include目录、当前工作路径和XLan目录中搜索
+"set path=.,/usr/include,/usr/local/Trolltech/Qt-4.4.1/include,,~/jayden/project/xlan/**
+set path=.
+if has("win32")
+set tags=.\tags
+else
+set tags=./tags
+endif
+
+"打开文件类型检测,关掉智能补全时的预览窗口
+filetype plugin indent on
+set completeopt=longest,menu
+
+" 设置taglist
+let Tlist_Show_One_File = 1 "只显示当前文件的tag
+let Tlist_Exit_OnlyWindow = 1 "如果taglist 是最后一个窗口则退出VIM
+"let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
+"let Tlist_Auto_Open  = 1 "启动vim时自动打开taglist 
+
+"quickfix 设置
+let g:my_quickfix_win_height=10
+nmap <leader>co :QFix<CR>
+nmap <leader>ct :call QFixToggle(1)<CR>
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+    else
+        if exists("g:my_quickfix_win_height")
+            execute "copen ".g:my_quickfix_win_height
+        else
+            copen
+        endif
+    endif
+endfunction
+augroup QFixToggle
+    autocmd!
+    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+augroup END
+
+map <F10> <ESC>:QFix<RETURN>   
+
+" neocomplcach 设置
+"let g:neocomplcache_enable_at_startup=1
+
+"netrw 设置
+let g:netrw_winsize = 30
+nmap <silent> <leader>fe :Sexplore!<cr>
+
+"echofunc 设置
+let g:EchoFuncLangsUsed = ["cpp", "java"] 
+
+"bufexplor 设置
+let g:bufExplorerDefaultHelp=0       " Do not show default help.
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+let g:bufExplorerSplitRight=0        " Split left.
+let g:bufExplorerSplitVertical=1     " Split vertically.
+let g:bufExplorerSplitVertSize = 30  " Split width
+let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+
+"winManager 设置
+let g:winManagerWindowLayout = "BufExplorer,FileExplorer|TagList"
+let g:winManagerWidth = 30
+let g:defaultExplorer = 0
+nmap <C-W><C-F> :FirstExplorerWindow<cr>
+nmap <C-W><C-B> :BottomExplorerWindow<cr>
+nmap <silent> <leader>wm :WMToggle<cr> 
+
+"设置 doxygenToolkit
+let g:DoxygenToolkit_authorName="Jayden   tjjun@vtron.com"
+let g:DoxygenToolkit_briefTag_funcName="yes"
+let g:DoxygenToolkit_licenseTag="Copyright (c) 2010, VTRON All rights reserved.\<enter>"
+let g:DoxygenToolkit_commentType = "C++"
+map <F7> <ESC>:DoxAuthor<RETURN>      
+"map <F10> <ESC>:Dox<RETURN>   
+map <F9> <ESC>:DoxBlock<RETURN>   
+"map <F8> <ESC>O/** */<Left><Left> <RETURN>   
+"map <F9> <ESC>:DoxUndoc<RETURN>   
+"map <F10> <ESC>:DoxLic<RETURN>   
+
+"lookupfile设置
+let g:LookupFile_MinPatLength = 2               "最少输入2个字符才开始查找
+let g:LookupFile_PreserveLastPattern = 0        "不保存上次查找的字符串
+let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
+let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
+let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
+if filereadable("./filenametags")                "设置tag文件的名字
+    let g:LookupFile_TagExpr = '"./filenametags"'
+endif
+nmap <silent> <leader>lk :LookupFile<cr>   "映射LookupFile为,lk
+nmap <silent> <leader>ll :LUBufs<cr>       "映射LUBufs为,ll
+nmap <silent> <leader>lw :LUWalk<cr>       "映射LUWalk为,lw
+
+" a.vim 设置
+map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件
+
+
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+"if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+"else
+"  set backup		" keep a backup file
+"endif
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
+
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+set mouse=a
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+"command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+"	 	\ | wincmd p | diffthis
