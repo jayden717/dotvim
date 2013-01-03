@@ -7,3 +7,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "bundle/echofunc"]
+	path = bundle/echofunc
+	url = https://github.com/mbbill/echofunc.git
