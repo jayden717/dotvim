@@ -76,14 +76,15 @@ map <F5> <ESC>:WMToggle<RETURN>
   
 " nerdtree 设置
 let NERDTreeWinPos='left'
+let NERDTreeWinSize=20
 nnoremap <F3> :NERDTreeToggle<CR>
 
 " tagbar 设置
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = 'ctags'
-let g:tagbar_width = 30
-let g:tagbar_left = 1         "在左侧
-"let g:tagbar_right = 1        "在右侧
+let g:tagbar_width = 20
+"let g:tagbar_left = 1         "在左侧
+let g:tagbar_right = 1        "在右侧
 
 " SrcExpl 设置 
 nmap <F8> :SrcExplToggle<CR> 
@@ -123,7 +124,8 @@ set path=.
 if has("win32")
 set tags=.\tags
 else
-set tags=./tags
+set tags+=~/tags/stltags
+set tags+=./tags
 endif
 
 "打开文件类型检测,关掉智能补全时的预览窗口
