@@ -102,7 +102,6 @@ set path=.
 if has("win32")
 set tags=.\tags
 else
-set tags+=~/tags/stltags
 set tags+=./tags
 endif
 
