@@ -10,6 +10,7 @@
 "	    for OpenVMS:  sys$login:.vimrc
 
 "自动加载pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
 source ~/.vim/neocomplcache.conf
