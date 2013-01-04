@@ -75,16 +75,16 @@ map H :Tbbp<RETURN>
 map <F3> <ESC>:set mouse-=a<RETURN>
   
 " nerdtree 设置
-let NERDTreeWinPos='left'
-let NERDTreeWinSize=20
+let NERDTreeWinPos='right'
+let NERDTreeWinSize=30
 nnoremap <F4> :NERDTreeToggle<CR>
 
 " tagbar 设置
 nmap <silent> <F5> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = 'ctags'
-let g:tagbar_width = 20
-"let g:tagbar_left = 1         "在左侧
-let g:tagbar_right = 1        "在右侧
+let g:tagbar_width = 30
+let g:tagbar_left = 1         "在左侧
+"let g:tagbar_right = 1        "在右侧
 
 " a.vim 设置
 map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
