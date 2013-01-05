@@ -81,10 +81,11 @@ nnoremap <F4> :NERDTreeToggle<CR>
 
 " tagbar 设置
 nmap <silent> <F5> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = 'ctags'
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
 let g:tagbar_width = 30
 let g:tagbar_left = 1         "在左侧
 "let g:tagbar_right = 1        "在右侧
+"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " a.vim 设置
 map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
