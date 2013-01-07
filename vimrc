@@ -70,7 +70,7 @@ map H :Tbbp<RETURN>
 "lookup file 内部绑定了F5
 
 " 绑定功能键
-"map <F2> <ESC>:set mouse=v<RETURN>
+map <F2> <ESC>:set mouse=v<RETURN>
 "map <F3> <ESC>:set mouse=a<RETURN>
 map <F3> <ESC>:set mouse-=a<RETURN>
   
