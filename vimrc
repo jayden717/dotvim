@@ -109,6 +109,22 @@ endif
 "Cscope设置
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
+" vim-snipmate 设置
+"<CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"<TAB>: completion. NO USE with snipmate
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" *************************
+
+"<C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-Y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+"inoremap <expr><Enter>  pumvisible() ? neocomplcache#close_popup()."\<C-n>" :"\<Enter>"
+inoremap <expr><Enter> pumvisible() ? "\<C-n>" : "\<Enter>"
+" 类似于AutoComplPop用法 .
+let g:neocomplcache_enable_auto_select = 1
+
 "打开文件类型检测,关掉智能补全时的预览窗口
 filetype plugin indent on
 set completeopt=longest,menu
