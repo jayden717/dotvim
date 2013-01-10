@@ -1,7 +1,5 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2006 Nov 16
+" Maintainer:	Jayden <jayden717@gmail.com>
+" Last change:	2013-01-10 
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
@@ -15,7 +13,11 @@ call pathogen#infect()
 
 " neocomplcach 设置
 "let g:neocomplcache_enable_at_startup=1
-source ~/.vim/neocomplcache.conf
+if has("win32")
+    source $VIM/vimfiles/neocomplcache.conf
+else
+    source ~/.vim/neocomplcache.conf
+endif
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -81,7 +83,7 @@ nnoremap <F4> :NERDTreeToggle<CR>
 
 " tagbar 设置
 nmap <silent> <F5> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = '/usr/bin/ctags'
+"let g:tagbar_ctags_bin = '/usr/bin/ctags'
 let g:tagbar_width = 30
 let g:tagbar_left = 1         "在左侧
 "let g:tagbar_right = 1        "在右侧
