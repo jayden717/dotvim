@@ -68,14 +68,16 @@ map <c-k> <c-w>k
 map L :Tbbn<RETURN>             
 map H :Tbbp<RETURN>              
 
-"visualmark 内部绑定了F2
-"lookup file 内部绑定了F5
-
 " 绑定功能键
-map <F2> <ESC>:set mouse=v<RETURN>
+"map <F2> <ESC>:set mouse=v<RETURN>
 "map <F3> <ESC>:set mouse=a<RETURN>
-map <F3> <ESC>:set mouse-=a<RETURN>
+map <F2> <ESC>:set mouse-=a<RETURN>
   
+" grep.vim 设置
+nnoremap <silent> <F3> :Grep<CR>
+nmap <S-n> :cnext<CR>
+nmap <S-p> :cprev<CR> 
+
 " nerdtree 设置
 let NERDTreeWinPos='right'
 let NERDTreeWinSize=30
