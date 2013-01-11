@@ -83,6 +83,9 @@ let NERDTreeWinPos='right'
 let NERDTreeWinSize=30
 nnoremap <F4> :NERDTreeToggle<CR>
 
+" nerdcommenter 设置
+let mapleader=","
+
 " tagbar 设置
 nmap <silent> <F5> :TagbarToggle<CR>
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
