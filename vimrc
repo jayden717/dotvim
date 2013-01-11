@@ -170,9 +170,10 @@ let g:DoxygenToolkit_authorName="Jayden   tjjun@vtron.com"
 let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:DoxygenToolkit_licenseTag="Copyright (c) 2010, VTRON All rights reserved.\<enter>"
 let g:DoxygenToolkit_commentType = "C++"
-map <F8> <ESC>:DoxAuthor<RETURN>      
-"map <F10> <ESC>:Dox<RETURN>   
-map <F9> <ESC>:DoxBlock<RETURN>   
+let g:doxygen_enhanced_color=1
+"map <F10> <ESC>:DoxAuthor<RETURN>      
+"map <F11> <ESC>:Dox<RETURN>   
+"map <F12> <ESC>:DoxBlock<RETURN>   
 "map <F8> <ESC>O/** */<Left><Left> <RETURN>   
 "map <F9> <ESC>:DoxUndoc<RETURN>   
 "map <F10> <ESC>:DoxLic<RETURN>   
