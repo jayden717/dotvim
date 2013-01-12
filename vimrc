@@ -78,6 +78,15 @@ nnoremap <silent> <F3> :Grep<CR>
 nmap <S-n> :cnext<CR>
 nmap <S-p> :cprev<CR> 
 
+" ctrlp 设置
+if has("win32")
+    set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,.svn
+else
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+endif
+"let g:ctrlp_clear_cache_on_exit = 1
+"let g:ctrlp_working_path_mode = 'ra'
+
 " nerdtree 设置
 let NERDTreeWinPos='right'
 let NERDTreeWinSize=30
@@ -117,20 +126,6 @@ endif
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 " vim-snipmate 设置
-"<CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-"<TAB>: completion. NO USE with snipmate
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" *************************
-
-"<C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-Y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-"inoremap <expr><Enter>  pumvisible() ? neocomplcache#close_popup()."\<C-n>" :"\<Enter>"
-inoremap <expr><Enter> pumvisible() ? "\<C-n>" : "\<Enter>"
-" 类似于AutoComplPop用法 .
-let g:neocomplcache_enable_auto_select = 1
 
 "打开文件类型检测,关掉智能补全时的预览窗口
 filetype plugin indent on
