@@ -95,6 +95,13 @@ nnoremap <F4> :NERDTreeToggle<CR>
 " nerdcommenter 设置
 let mapleader=","
 
+" clang_complete
+"let g:clang_complete_auto = 1 
+"let g:clang_complete_copen = 1 
+"let g:clang_auto_user_options='path, ~/.clang_complete'
+"let g:clang_use_library=1
+"let g:clang_user_options='-stdlib=libc++ -std=c++11 -IIncludePath'
+
 " tagbar 设置
 nmap <silent> <F5> :TagbarToggle<CR>
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
