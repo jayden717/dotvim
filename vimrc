@@ -17,7 +17,7 @@ call add(g:pathogen_disabled, 'echofunc')
 call pathogen#infect()
 
 " neocomplcach 设置
-let g:neocomplcache_enable_at_startup=1
+"let g:neocomplcache_enable_at_startup=1
 if has("win32")
 "    source $VIM/vimfiles/neocomplcache.conf
 else
@@ -101,13 +101,13 @@ nnoremap <F4> :NERDTreeToggle<CR>
 let mapleader=","
 
 " clang_complete
-let g:clang_use_library=1
+"let g:clang_use_library=1
 if has("win32")
-    let g:clang_library_path="C:/MinGW/clang+llvm-3.2-x86-mingw32-EXPERIMENTAL/bin"
+    "let g:clang_library_path="C:/MinGW/clang+llvm-3.2-x86-mingw32-EXPERIMENTAL/bin"
 else
-    let g:clang_library_path="/home/jayden/llvm/lib"
+    "let g:clang_library_path="/home/jayden/llvm/lib"
 endif
-let g:clang_complete_auto = 1 
+"let g:clang_complete_auto = 1 
 "let g:clang_auto_user_options='path, ~/.clang_complete'
 "let g:clang_use_library=1
 "let g:clang_user_options='-stdlib=libc++ -std=c++11 -IIncludePath'
