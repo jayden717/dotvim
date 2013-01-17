@@ -98,15 +98,18 @@ let NERDTreeWinSize=30
 nnoremap <F4> :NERDTreeToggle<CR>
 
 " nerdcommenter 设置
-let mapleader=","
+"Set mapleader
+let mapleader = ","
 
 " clang_complete
-"let g:clang_use_library=1
+let g:clang_use_library=1
+"let g:clang_debug = 1
 if has("win32")
-    "let g:clang_library_path="C:/MinGW/clang+llvm-3.2-x86-mingw32-EXPERIMENTAL/bin"
+    let g:clang_library_path="C:/MinGW/clang+llvm-3.2-x86-mingw32-EXPERIMENTAL/bin"
 else
-    "let g:clang_library_path="/home/jayden/llvm/lib"
+    let g:clang_library_path="/home/tanjianjun/llvm-3.2/lib/"
 endif
+"let g:clang_complete_copen = 1 
 "let g:clang_complete_auto = 1 
 "let g:clang_auto_user_options='path, ~/.clang_complete'
 "let g:clang_use_library=1
@@ -123,8 +126,9 @@ let g:tagbar_left = 1         "在左侧
 " a.vim 设置
 map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
 
-"Set mapleader
-let mapleader = ","
+" c.vim 设置
+let g:C_SourceCodeExtensions  = 'h hpp hxx cpp cc cxx CPP c++ c C i ii'
+
 "Fast editing of .vimrc
 map <silent> <leader>e :e ~/.vimrc<cr>
 "When .vimrc is edited, reload it
