@@ -7,39 +7,86 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "	    for OpenVMS:  sys$login:.vimrc
 
-"自动加载pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-"disable some plugin
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'neocomplcache')
-call add(g:pathogen_disabled, 'echofunc')
+" Set up Vundle:
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"
+set nocompatible     " be iMproved, required
+filetype off         " required
 
-call pathogen#infect()
-
-" neocomplcach 设置
-"let g:neocomplcache_enable_at_startup=1
+" set the runtime path to include Vundle and initialize
 if has("win32")
-"    source $VIM/vimfiles/neocomplcache.conf
+	set rtp+=$VIM\vimfiles\bundle\Vundle.vim\
+	let path='$VIM\vimfiles\bundle'
+	call vundle#begin(path)
 else
-"    source ~/.vim/neocomplcache.conf
+	set rtp+=~/.vim/bundle/Vundle.vim/
+	call vundle#rc()
 endif
+
+
+" alternatively, pass a path where Vundle should install plugins
+"let path = '~/some/path/here'
+"call vundle#rc(path)
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" 代码存放在 github
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Mizuchi/STL-Syntax'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'sjl/gundo.vim'
+Plugin 'fatih/vim-go'
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'Lokaltog/vim-powerline'
+Plugin 'Yggdroot/indentLine'
+Plugin 'altercation/vim-colors-solarized'
+
+" 代码存放在 vim script 
+Plugin 'grep.vim'
+
+" 代码存放在其他地方
+" Plugin 'git://git.wincent.com/command-t.git'
+
+"Vundle Doesn't Load All Of My Bundles...
+"call vundle#config#require(g:bundles)
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
 endif
 
-" 设置编码
+" ******** file encode ********
+" unix or dos file
+set fileformats=unix,dos
+
+" euc-cn is alias to gb2312
+" set vi inside coding, must be set when you use gbk or utf-8
 set encoding=utf-8
-" 设置文件编码检测类型及支持格式
-"set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set fileencodings=utf-8,chinese,latin-1
+
+" actual file encoding, will set as it except fileencodings load other
+" set fileencoding=gb2312
 " 设置文件编码
 if has("win32")
 set fileencoding=chinese
 else
 set fileencoding=utf-8
 endif
+
+" 设置文件编码检测类型及支持格式
+set fileencodings=utf-bom,utf-8,gbk,gb2312,gb18030,cp936,latin1
+
+" terminal encoding
+" even if you set utf-8 in ssh client
+set termencoding=utf-8
+
 " 指定菜单语言
 set langmenu=zh_CN.UTF-8
 "解决菜单乱码
@@ -47,9 +94,6 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 "解决consle输出乱码
 language messages zh_CN.utf-8 
-" 设置配色方案
-"colorscheme evening 
-
 " 显示行号
 set number
 " 使用space代替tab
@@ -58,84 +102,157 @@ set expandtab
 set tabstop=4
 " 自动缩进的宽度
 set shiftwidth=4
+"让vim把连续数量的空格视为一个制表符
+set softtabstop=4
+
 " 取消查找内容高亮显示
 set nohlsearch
 set textwidth=78 
 set formatoptions+=mM
 
+" 高亮显示当前行/列
+"set cursorline
+"set cursorcolumn
+ 
 " 绑定在窗口之间移动的快捷键
-map <c-h> <c-w>h
-map <c-l> <c-w>l
-map <c-j> <c-w>j
-map <c-k> <c-w>k
+map <C-J> <C-W>j<C-W>
+map <C-K> <C-W>k<C-W>
+map <C-L> <C-W>l<C-W>
+map <C-H> <C-W>h<C-W>
 
-" 绑定tabbar在多个文件中切换
-map L :Tbbn<RETURN>             
-map H :Tbbp<RETURN>              
+"打开文件类型检测,关掉智能补全时的预览窗口
+filetype plugin indent on
+set completeopt=longest,menu
 
 " 绑定功能键
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "map <F2> <ESC>:set mouse=v<RETURN>
 "map <F3> <ESC>:set mouse=a<RETURN>
 map <F2> <ESC>:set mouse-=a<RETURN>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-" grep.vim 设置
+"配置 airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set status line
+set laststatus=2
+" enable powerline-fonts
+let g:airline_powerline_fonts = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"配置 solarized
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"if !has("win32")
+
+syntax enable
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+"set t_Co=256
+let &t_Co=256
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+
+colorscheme solarized
+"endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 配置 grep.vim 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <F3> :Grep<CR>
 nmap <S-n> :cnext<CR>
 nmap <S-p> :cprev<CR> 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" nerdcommenter 设置
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:mapleader = ","
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"配置 YouCompleteMe
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_ignore_files=[".*\.py$"]  
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+"让Vim的补全菜单行为与一般IDE一致
+set completeopt=longest,menu    
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全            
+let g:ycm_seed_identifiers_with_syntax=1
+"打开vim时不再询问是否加载ycm_extra_conf.py配置
+let g:ycm_confirm_extra_conf=0
+let g:ycm_enable_diagnostic_highlighting = 0
+
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+
+"nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+nmap <F4> :YcmDiags<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"UltiSnips快捷键
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ctrlp 设置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("win32")
     set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,.svn
 else
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 endif
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 "let g:ctrlp_clear_cache_on_exit = 1
-"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'ra'
+
+if executable('ag')
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
+    " Use ag in CtrlP for listing files.
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " Ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"配置Tagbar
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let tagbar_left=1 
+let g:tagbar_width=35
+let g:tagbar_autofocus=1
+nnoremap <F5> :TagbarToggle<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " nerdtree 设置
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDChristmasTree=0
+let NERDTreeWinSize=35
+let NERDTreeChDirMode=2
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+let NERDTreeShowBookmarks=1
 let NERDTreeWinPos='right'
-let NERDTreeWinSize=30
-nnoremap <F4> :NERDTreeToggle<CR>
-
-" nerdcommenter 设置
-"Set mapleader
-let mapleader = ","
-
-" clang_complete
-let g:clang_use_library=1
-"let g:clang_debug = 1
-if has("win32")
-    let g:clang_library_path="C:/MinGW/clang+llvm-3.2-x86-mingw32-EXPERIMENTAL/bin"
-else
-    let g:clang_library_path="/home/tanjianjun/llvm-3.2/lib/"
-endif
-"let g:clang_complete_copen = 1 
-"let g:clang_complete_auto = 1 
-"let g:clang_auto_user_options='path, ~/.clang_complete'
-"let g:clang_use_library=1
-"let g:clang_user_options='-stdlib=libc++ -std=c++11 -IIncludePath'
-
-" tagbar 设置
-nmap <silent> <F5> :TagbarToggle<CR>
-"let g:tagbar_ctags_bin = '/usr/bin/ctags'
-let g:tagbar_width = 30
-let g:tagbar_left = 1         "在左侧
-"let g:tagbar_right = 1        "在右侧
-"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
-
-" a.vim 设置
-map <F6> <ESC>:A<RETURN>   "在新Buffer中切换到c\h文件 
-
-" c.vim 设置
-let g:C_SourceCodeExtensions  = 'h hpp hxx cpp cc cxx CPP c++ c C i ii'
+nnoremap <F6> :NERDTreeToggle<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Fast editing of .vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <silent> <leader>e :e ~/.vimrc<cr>
 "When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 设置path  在当前文件所在目录、/usr/include目录、当前工作路径中搜索
-"set path=.,/usr/include,,
+" 配置tags|Cscope
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set path=.
 if has("win32")
 set tags=.\tags
@@ -145,14 +262,10 @@ endif
 
 "Cscope设置
 set cscopequickfix=s-,c-,d-,i-,t-,e-
-
-" vim-snipmate 设置
-
-"打开文件类型检测,关掉智能补全时的预览窗口
-filetype plugin indent on
-set completeopt=longest,menu
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "quickfix 设置
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:my_quickfix_win_height=10
 nmap <leader>co :QFix<CR>
 nmap <leader>ct :call QFixToggle(1)<CR>
@@ -175,40 +288,12 @@ augroup QFixToggle
 augroup END
 
 map <F7> <ESC>:QFix<RETURN>   
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-"netrw 设置
-let g:netrw_winsize = 30
-nmap <silent> <leader>fe :Sexplore!<cr>
-
-"echofunc 设置
-let g:EchoFuncLangsUsed = ["cpp", "java"] 
-
-"设置 doxygenToolkit
-let g:DoxygenToolkit_authorName="Jayden   tjjun@vtron.com"
-let g:DoxygenToolkit_briefTag_funcName="yes"
-let g:DoxygenToolkit_licenseTag="Copyright (c) 2010, VTRON All rights reserved.\<enter>"
-let g:DoxygenToolkit_commentType = "C++"
-let g:doxygen_enhanced_color=1
-"map <F10> <ESC>:DoxAuthor<RETURN>      
-"map <F11> <ESC>:Dox<RETURN>   
-"map <F12> <ESC>:DoxBlock<RETURN>   
-"map <F8> <ESC>O/** */<Left><Left> <RETURN>   
-"map <F9> <ESC>:DoxUndoc<RETURN>   
-"map <F10> <ESC>:DoxLic<RETURN>   
-
-"lookupfile设置
-let g:LookupFile_MinPatLength = 2               "最少输入2个字符才开始查找
-let g:LookupFile_PreserveLastPattern = 0        "不保存上次查找的字符串
-let g:LookupFile_PreservePatternHistory = 1     "保存查找历史
-let g:LookupFile_AlwaysAcceptFirst = 1          "回车打开第一个匹配项目
-let g:LookupFile_AllowNewFiles = 0              "不允许创建不存在的文件
-if filereadable("./filenametags")                "设置tag文件的名字
-    let g:LookupFile_TagExpr = '"./filenametags"'
-endif
-nmap <silent> <leader>lk :LookupFile<cr>   "映射LookupFile为,lk
-nmap <silent> <leader>ll :LUBufs<cr>       "映射LUBufs为,ll
-nmap <silent> <leader>lw :LUWalk<cr>       "映射LUWalk为,lw
+"gundo.vim 设置 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <F8> :GundoToggle<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
