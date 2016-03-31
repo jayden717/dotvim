@@ -42,6 +42,8 @@ Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'easymotion/vim-easymotion'
 
 " 代码存放在 vim script 
 Plugin 'grep.vim'
