@@ -12,6 +12,11 @@ cd gnome-terminal-colors-solarized
 ./set_dark.sh
 #./set_light.sh
 
+cd ~/vim_tools
+git clone https://github.com/powerline/fonts.git
+cd fonts
+./install.sh
+
 cd 
 
 #Set up Vundle:
