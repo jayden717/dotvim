@@ -127,10 +127,31 @@ map <F2> <ESC>:set mouse-=a<RETURN>
   
 "配置 airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_theme="luna" 
 " set status line
 set laststatus=2
 " enable powerline-fonts
 let g:airline_powerline_fonts = 1
+
+if has("win32")
+" 设置consolas字体"
+set guifont=Consolas\ for\ Powerline\ FixedD:h11
+
+"设置状态栏符号显示，下面编码用双引号"
+let g:Powerline_symbols="fancy"
+let g:airline_symbols = {}
+let g:airline_left_sep = "\u2b80" 
+let g:airline_left_alt_sep = "\u2b81"
+let g:airline_right_sep = "\u2b82"
+let g:airline_right_alt_sep = "\u2b83"
+let g:airline_symbols.branch = "\u2b60"
+let g:airline_symbols.readonly = "\u2b64"
+let g:airline_symbols.linenr = "\u2b61"
+
+"设置顶部tabline栏符号显示"
+let g:airline#extensions#tabline#left_sep = "\u2b80"
+let g:airline#extensions#tabline#left_alt_sep = "\u2b81"
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "配置 solarized
@@ -139,7 +160,7 @@ let g:airline_powerline_fonts = 1
 
 syntax enable
 if has('gui_running')
-    set background=light
+    set background=dark
 else
     set background=dark
 endif
@@ -170,6 +191,7 @@ let g:mapleader = ","
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_ignore_files=[".*\.py$"]  
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+let g:ycm_global_ycm_extra_conf = 'C:\\Users\\Jayden\\.ycm_extra_conf.py'  
 "让Vim的补全菜单行为与一般IDE一致
 set completeopt=longest,menu    
 " 禁止缓存匹配项，每次都重新生成匹配项
