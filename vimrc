@@ -15,18 +15,12 @@ filetype off         " required
 
 " set the runtime path to include Vundle and initialize
 if has("win32")
-	set rtp+=$VIM\vimfiles\bundle\Vundle.vim\
-	let path='$VIM\vimfiles\bundle'
-	call vundle#begin(path)
+    set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
+    call vundle#begin('$USERPROFILE/vimfiles/bundle/')
 else
 	set rtp+=~/.vim/bundle/Vundle.vim/
-	call vundle#rc()
+    call vundle#begin()
 endif
-
-
-" alternatively, pass a path where Vundle should install plugins
-"let path = '~/some/path/here'
-"call vundle#rc(path)
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -55,8 +49,8 @@ Plugin 'grep.vim'
 " 代码存放在其他地方
 " Plugin 'git://git.wincent.com/command-t.git'
 
-"Vundle Doesn't Load All Of My Bundles...
-"call vundle#config#require(g:bundles)
+" All of your Plugins must be added before the following line
+call vundle#end()   " required
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
