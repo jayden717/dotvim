@@ -6,53 +6,65 @@
 "	      for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "	    for OpenVMS:  sys$login:.vimrc
-
 " Set up Vundle:
 " git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 "
 set nocompatible     " be iMproved, required
 filetype off         " required
 
-" set the runtime path to include Vundle and initialize
+call has('python3')
+
 if has("win32")
-    set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-    call vundle#begin('$USERPROFILE/vimfiles/bundle/')
+    call plug#begin('$USERPROFILE/vimfiles/plugged')
 else
-	set rtp+=~/.vim/bundle/Vundle.vim/
-    call vundle#begin()
+    call plug#begin('~/.vim/plugged')
 endif
 
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Mizuchi/STL-Syntax'
+Plug 'Chiel92/vim-autoformat'
+Plug 'sjl/gundo.vim'
+Plug 'fatih/vim-go'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Lokaltog/vim-powerline'
+Plug 'Yggdroot/indentLine'
+Plug 'altercation/vim-colors-solarized'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'easymotion/vim-easymotion'
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'] }  
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
+" Load on nothing
+"Plug 'SirVer/ultisnips', { 'on': [] }
+"Plug 'Valloric/YouCompleteMe', { 'on': [] }
+
+"augroup load_us_ycm
+"  autocmd!
+"  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+"                     \| autocmd! load_us_ycm
+"augroup END
+
+call plug#end()  
+
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+"Plugin 'gmarik/Vundle.vim'
 
 " 代码存放在 github
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'Mizuchi/STL-Syntax'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'sjl/gundo.vim'
-Plugin 'fatih/vim-go'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'Lokaltog/vim-powerline'
-Plugin 'Yggdroot/indentLine'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'easymotion/vim-easymotion'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'majutsushi/tagbar'
 
 " 代码存放在 vim script 
-Plugin 'grep.vim'
+"Plugin 'grep.vim'
 
 " 代码存放在其他地方
 " Plugin 'git://git.wincent.com/command-t.git'
 
 " All of your Plugins must be added before the following line
-call vundle#end()   " required
+"call vundle#end()   " required
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -129,7 +141,7 @@ map <F2> <ESC>:set mouse-=a<RETURN>
   
 "配置 airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme="luna" 
+"let g:airline_theme="luna" 
 " set status line
 set laststatus=2
 " enable powerline-fonts
@@ -197,7 +209,7 @@ let g:ycm_global_ycm_extra_conf = 'C:\\Users\\Jayden\\.ycm_extra_conf.py'
 "让Vim的补全菜单行为与一般IDE一致
 set completeopt=longest,menu    
 " 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
+let g:ycm_cache_omnifunc=1
 " 语法关键字补全            
 let g:ycm_seed_identifiers_with_syntax=1
 "打开vim时不再询问是否加载ycm_extra_conf.py配置
