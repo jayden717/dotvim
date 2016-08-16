@@ -17,6 +17,11 @@ call has('python3')
 if has("win32")
     call plug#begin('$USERPROFILE/vimfiles/plugged')
 else
+" Load vim-plug
+    if empty(glob("~/.vim/autoload/plug.vim"))
+        execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    endif
+
     call plug#begin('~/.vim/plugged')
 endif
 
@@ -37,6 +42,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'] }  
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
+Plug 'vim-scripts/Mark--Karkat'
+Plug 'vim-scripts/grep.vim'
 
 " Load on nothing
 "Plug 'SirVer/ultisnips', { 'on': [] }
