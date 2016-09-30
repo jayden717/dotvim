@@ -39,7 +39,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'altercation/vim-colors-solarized'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'] }  
+"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'] }  
+Plug 'Valloric/YouCompleteMe'  
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'vim-scripts/Mark--Karkat'
@@ -212,7 +213,12 @@ let g:mapleader = ","
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_ignore_files=[".*\.py$"]  
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+if has("win32")
 let g:ycm_global_ycm_extra_conf = 'C:\\Users\\Jayden\\.ycm_extra_conf.py'  
+else
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  
+endif
+
 "让Vim的补全菜单行为与一般IDE一致
 set completeopt=longest,menu    
 " 禁止缓存匹配项，每次都重新生成匹配项
